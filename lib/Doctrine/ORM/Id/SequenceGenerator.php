@@ -80,7 +80,8 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
     {
         if ($this->_maxValue === null || $this->_nextValue == $this->_maxValue) {
             // Allocate new values
-            $conn = $em->getConnection()->connect('master');
+            $em->getConnection()->connect('master');
+            $conn = $em->getConnection();
             $sql  = $conn->getDatabasePlatform()->getSequenceNextValSQL($this->_sequenceName);
 
             $this->_nextValue = (int)$conn->fetchColumn($sql);
